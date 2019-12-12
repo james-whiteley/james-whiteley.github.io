@@ -6205,7 +6205,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #1abc9c !important;
+  background: url('../img/photo-1472289065668-ce650ac443d2.jpeg') !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
