@@ -6206,6 +6206,8 @@ a.close.disabled {
 
 .bg-primary {
   background: url('../img/photo-1472289065668-ce650ac443d2.jpeg') !important;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
