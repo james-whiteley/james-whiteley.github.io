@@ -1,44 +1,80 @@
-window.addEventListener("DOMContentLoaded", function() {
+$(function() {
 
-  // get the form elements defined in your form HTML above
-    
-  var form = document.getElementById("contactForm");
-  var button = document.getElementById("sendMessageButton");
-  var status = document.getElementById("success");
+  $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
+    preventSubmit: true,
+    submitError: function($form, event, errors) {
+      // additional error messages or events
+    },
+    submitSuccess: function($form, event) {
+      event.preventDefault(); // prevent default submit behaviour
+      // get values from FORM
+      var name = $("input#name").val();
+      var email = $("input#email").val();
+      var phone = $("input#phone").val();
+      var message = $("textarea#message").val();
+      var firstName = name; // For Success/Failure Message
+      // Check for white space in name for Success/Fail message
+      if (firstName.indexOf(' ') >= 0) {
+        firstName = name.split(' ').slice(0, -1).join(' ');
+      }
+      $this = $("#sendMessageButton");
+      $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
+      $.ajax({
+        url: "https://formspree.io/xvokdwjd",
+        type: "POST",
+        dataType: 'html',
+        data: {
+          name: name,
+          phone: phone,
+          email: email,
+          message: message
+        },
+        headers: {          
+          Accept: "application/json"
+        },
+        cache: false,
+        success: function() {
+          // Success message
+          $('#success').html("<div class='alert alert-success'>");
+          $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+            .append("</button>");
+          $('#success > .alert-success')
+            .append("<strong>Your message has been sent. </strong>");
+          $('#success > .alert-success')
+            .append('</div>');
+          //clear all fields
+          $('#contactForm').trigger("reset");
+        },
+        error: function(data) {
+          console.log(data);
+          // Fail message
+          $('#success').html("<div class='alert alert-danger'>");
+          $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+            .append("</button>");
+          $('#success > .alert-danger').append($("<strong>").text("Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!"));
+          $('#success > .alert-danger').append('</div>');
+          //clear all fields
+          $('#contactForm').trigger("reset");
+        },
+        complete: function() {
+          setTimeout(function() {
+            $this.prop("disabled", false); // Re-enable submit button when AJAX call is complete
+          }, 1000);
+        }
+      });
+    },
+    filter: function() {
+      return $(this).is(":visible");
+    },
+  });
 
-  // Success and Error functions for after the form is submitted
-    
-  function success() {
-    status.innerHTML = "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><strong>Your message has been sent. </strong></div>";
-    form.reset();
-  }
-
-  function error() {
-    status.innerHTML = "<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><strong>Sorry, it seems that my mail server is not responding. Please try again later!</strong></div>";
-  }
-
-  // handle the form submission event
-
-  form.addEventListener("submit", function(ev) {
-    ev.preventDefault();
-    var data = new FormData(form);
-    ajax(form.method, form.action, data, success, error);
+  $("a[data-toggle=\"tab\"]").click(function(e) {
+    e.preventDefault();
+    $(this).tab("show");
   });
 });
-  
-// helper function for sending an AJAX request
 
-function ajax(method, url, data, success, error) {
-  var xhr = new XMLHttpRequest();
-  xhr.open(method, url);
-  xhr.setRequestHeader("Accept", "application/json");
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState !== XMLHttpRequest.DONE) return;
-    if (xhr.status === 200) {
-      success(xhr.response, xhr.responseType);
-    } else {
-      error(xhr.status, xhr.response, xhr.responseType);
-    }
-  };
-  xhr.send(data);
-}
+/*When clicking on Full hide fail/success boxes */
+$('#name').focus(function() {
+  $('#success').html('');
+});
