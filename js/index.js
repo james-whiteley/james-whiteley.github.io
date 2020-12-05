@@ -11,6 +11,7 @@ const sendMessageSuccess = document.getElementById('sendMessageSuccess');
 const sendMessageWarning = document.getElementById('sendMessageWarning');
 const sendMessageFail = document.getElementById('sendMessageFail');
 const messages = document.getElementsByClassName('messages');
+const backToTopButton = document.getElementById('back-to-top');
 
 // Listen for contactForm submission
 contactForm.onsubmit = (event) => {
@@ -114,3 +115,23 @@ const enableForm = () => {
 	sendMessageText.style.display = 'inline';
 	sendMessageLoader.style.display = 'none';
 }
+
+// When user scrolls, check if 'Back to the top' button should be displayed
+window.onscroll = () => {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopButton.style.display = 'block';
+  } else {
+    backToTopButton.style.display = 'none';
+  }
+}
+
+/**
+ * Scroll back to top of page
+ */
+const scrollBackToTop = () => {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+// Attach onclick listener to 'Back to the top' button
+backToTopButton.onclick = () => scrollBackToTop();
