@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@300;700&display=swap');
+html, body {
+	background: #F6F2EF;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+}
+
+nav {
+	margin: 10px 0 20px;
+}
+
+nav>.container {
+	text-align: center;
+}
+
+nav a {
+	display: inline-block;
+	margin: 0 15px;
+	line-height: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	border-top: 3px solid #F6F2EF;
+}
+
+nav a:hover {
+	border-top: 3px solid #084400;
+}
+
+h2 {
+	display: inline-block;
+	color: #084400;
+	line-height: 40px;
+	height: 40px;
+	background: #F6F2EF;
+	margin: 0 auto;
+	position: relative;
+	top: -21px;
+	padding: 0 20px;
+}
+
+div.divider {
+	border-bottom: 2px solid #084400;
+	margin: 50px 0 0;
+}
+
+p {
+	margin: 0 0 10px 0;
+	text-align: left;
+}
+
+a {
+	text-decoration: none;
+	font-weight: 900;
+	color: #084400;
+}
+
+input, textarea {
+	width: 100%;
+	border: 1px solid #D4D0CD;
+	box-sizing: border-box;
+	padding: 15px 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+}
+
+input, textarea, button {
+	margin: 10px 0 0;
+}
+
+input:focus, textarea:focus {
+	outline: none;
+}
+
+button[type=submit] {
+	display: block;
+	width: 100%;
+	border: none;
+	box-sizing: border-box;
+	padding: 15px 20px;
+	background: #084400;
+	color: #FFF;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#sendMessageButton img {
+	display: none;
+}
+
+.messages {
+	padding: 15px 20px;
+	margin: 10px 0 0;
+	display: none;
+}
+
+#sendMessageSuccess {
+	background: rgba(67, 160, 71, 0.4);
+}
+
+#sendMessageWarning {
+	background: rgba(255, 204, 0, 0.4);
+}
+
+#sendMessageFail {
+	background: rgba(237, 56, 51, 0.4);
+}
+
+#sendMessageFail a {
+	color: #000;
+}
+
+.container {
+	width: 600px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+header img {
+	width: 30%;
+	float: left;
+}
+
+header h1 {
+	font-family: 'Permanent Marker', cursive;
+	color: #323232;
+	font-size: 3.4rem;
+	padding-top: 40px;
+	margin: 0;
+	text-align: center;
+}
+
+header h1 strong {
+	color: #084400;
+}
+
+section {
+	margin-top: 25px;
+	overflow: auto;
+	text-align: center;
+}
+
+section#where-to-find-me {
+	overflow: auto;
+}
+
+#find-me-container {
+	width: 100%;
+	text-align: left;
+}
+
+#find-me-text {
+	width: 55%;
+	margin: 15px 9% 0 0;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#find-me-logos {
+	width: 35%;
+	height: auto;
+	display: inline-block;
+}
+
+#limecoda-logo {
+	float: left;
+	width: 80%;
+}
+
+#github-logo {
+	float: right;
+	width: 65%;
+}
+
+section#tech a.tech-logo {
+	height: 65px;
+	display: inline-block;
+	margin: 30px 1%;
+	width: 21%;
+	text-align: center;
+	font-size: 0.8rem;
+	color: #333;
+}
+
+section#tech a.tech-logo img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+section#tech a.tech-logo span {
+	display: block;
+	margin: 15px 0 0;
+}
+
+footer {
+	background: rgba(27, 68, 11, 0.1);
+	width: 100%;
+	padding: 25px 0;
+	margin: 40px 0 0;
+	font-weight: bold;
+	font-size: 0.9rem;
+}
