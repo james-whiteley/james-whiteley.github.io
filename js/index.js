@@ -129,9 +129,20 @@ window.onscroll = () => {
  * Scroll back to top of page
  */
 const scrollBackToTop = () => {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  //document.body.scrollTop = 0; // For Safari
+  //document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 // Attach onclick listener to 'Back to the top' button
 backToTopButton.onclick = () => scrollBackToTop();
+
+// Handle smooth scroll for nav links
+document.querySelectorAll('nav a').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+		document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
