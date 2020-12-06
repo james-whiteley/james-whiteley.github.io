@@ -1,3 +1,5 @@
+const nav = document.getElementsByTagName('nav')[0];
+const mobileNavIcon = document.getElementById('mobile-nav');
 const contactForm = document.getElementById('contactForm');
 const nameField = document.getElementById('name');
 const emailField = document.getElementById('email');
@@ -40,17 +42,18 @@ contactForm.onsubmit = (event) => {
 		})
 			.then(response => response.json())
 			.then(response => {
-				console.log(response);
+				let clearFields = false;
 				if (response.ok) {
 					// Show success message
 					sendMessageSuccess.style.display = 'block';
+					clearFields = true;
 				} else {
 					// Show fail message
 					sendMessageFail.style.display = 'block';
 				}
 
 				// Enable form after 5 seconds
-				setTimeout(enableForm, 5000);
+				setTimeout(() => enableForm(clearFields), 5000);
 			})
 			.catch(error => {
 				// Show fail message
@@ -98,10 +101,19 @@ const disableForm = () => {
 /**
  * Enables form elements and hides loader
  */
-const enableForm = () => {
+const enableForm = (clearFields = false) => {
 	// Hide all messages
 	for (const message of messages) {
 		message.style.display = 'none';
+	}
+
+	// Clear fields if flag true
+	if (clearFields) {
+		nameField.value = '';
+		emailField.value = '';
+		phoneField.value = '';
+		messageField.value = '';
+		sendMessageButton.value = '';
 	}
 
 	// Disable fields and button
@@ -114,6 +126,17 @@ const enableForm = () => {
 	// Show text and hide loader
 	sendMessageText.style.display = 'inline';
 	sendMessageLoader.style.display = 'none';
+}
+
+// Mobile navigation
+mobileNavIcon.onclick = () => openMobileNav();
+
+const openMobileNav = () => {
+	// Set class for icon animation
+  mobileNavIcon.classList.toggle('change');
+
+	// Open menu
+	nav.classList.toggle('open');
 }
 
 // When user scrolls, check if 'Back to the top' button should be displayed
@@ -129,8 +152,6 @@ window.onscroll = () => {
  * Scroll back to top of page
  */
 const scrollBackToTop = () => {
-  //document.body.scrollTop = 0; // For Safari
-  //document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 	window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
@@ -141,6 +162,11 @@ backToTopButton.onclick = () => scrollBackToTop();
 document.querySelectorAll('nav a').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
+
+		// If on mobile close nav
+		nav.classList.remove('open');
+		mobileNavIcon.classList.toggle('change');
+		
 		document.querySelector(this.getAttribute('href')).scrollIntoView({
       behavior: 'smooth'
     });
